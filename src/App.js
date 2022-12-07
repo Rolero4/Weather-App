@@ -3,6 +3,7 @@ import { useState } from "react";
 import { WeatherApiKey, WeatherApiUrl } from "./api";
 import CityWidget from "./components/cityWidget/cityWidget";
 import Search from "./components/search/search";
+import ListCity from "./components/listCity/listCity";
 
 function App() {
   const [currentWeather, setCurrentWeather] = useState(null);
@@ -12,10 +13,10 @@ function App() {
     const [latitude, longitude] = searchData.value.split(" ");
 
     const currentWeatherFetch = fetch(
-      `${WeatherApiUrl}/weather?lat=${latitude}&lon=${longitude}&appid=${WeatherApiKey}`
+      `${WeatherApiUrl}/weather?lat=${latitude}&lon=${longitude}&appid=${WeatherApiKey}&units=metric`
     );
     const forecastFetch = fetch(
-      `${WeatherApiUrl}/forecast?lat=${latitude}&lon=${longitude}&appid=${WeatherApiKey}`
+      `${WeatherApiUrl}/forecast?lat=${latitude}&lon=${longitude}&appid=${WeatherApiKey}&units=metric`
     );
 
     Promise.all([currentWeatherFetch, forecastFetch])
@@ -29,16 +30,16 @@ function App() {
       .catch((error) => console.log(error));
   };
 
-  console.log(currentWeather);
-  console.log(forecast);
-
   return (
     <div className="container">
-      <div className="container-test">
-        <Search onSearchChange={handleOnSearchChange} />
-      </div>
-      <CityWidget />
-      <CityWidget />
+      <Search onSearchChange={handleOnSearchChange} />
+      {/* {forecast && currentWeather && (
+        <CityWidget data={currentWeather} forecast={forecast} />
+      )} */}
+
+      {forecast && currentWeather && (
+        <ListCity data={currentWeather} forecast={forecast} />
+      )}
     </div>
   );
 }

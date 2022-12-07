@@ -12,12 +12,12 @@
 
 .weather {
   width: 600px;
-  border-radius: 0.5rem;
+  border-radius: 1rem;
   box-shadow: 10px -2px 20px 2px rgb(0, 0, 0, 0.3);
   color: aliceblue;
   background-color: #444;
-  margin: 1rem auto;
-  padding: 0.1rem;
+  margin: 0.5rem auto;
+  padding: 0.1rem 1rem;
 }
 
 .basic,
@@ -33,9 +33,8 @@
   font-weight: 600;
   font-size: 3rem;
   line-height: 1;
-  margin: 0;
+  margin: 0.2rem 0;
   letter-spacing: 1px;
-  width: 50%;
   word-break: normal;
 }
 
@@ -43,9 +42,8 @@
   font-weight: 400;
   font-size: 1.5rem;
   line-height: 1;
-  margin: 0;
+  margin: 0.2rem 0;
   letter-spacing: 1px;
-  width: 50%;
 }
 
 .weather-icon {
@@ -57,6 +55,7 @@
   font-size: 4rem;
   letter-spacing: -5px;
   margin: 0.5rem auto;
+  width: 30%;
 }
 
 .details {
@@ -64,18 +63,18 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding: 0.5rem;
+  padding: 0.5rem 0;
   margin-left: 1rem;
 }
 
 .parameter-row {
   display: flex;
   flex-direction: column;
-  text-align: left;
+  justify-content: space-between;
 }
 
 .parameter-label {
-  text-align: left;
+  text-align: center;
   font-weight: 400;
   font-size: 1.5rem;
 }
@@ -114,7 +113,7 @@
 
 @media (min-width: 280px) and (max-width: 620px) {
   .weather {
-    width: 250px;
+    width: 260px;
   }
 
   .city {
@@ -126,6 +125,7 @@
 
   .temperature {
     font-size: 3.5rem;
+    width: 40%;
   }
 
   .details {
@@ -146,7 +146,7 @@
   }
 
   .week {
-    width: 100%;
+    justify-content: space-between;
     overflow-x: scroll;
   }
 
