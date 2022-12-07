@@ -1,66 +1,44 @@
 import React from "react";
 import { useState } from "react";
-import axios from "axios";
+import { WeatherApiKey, WeatherApiUrl } from "./api";
+import CityWidget from "./components/cityWidget/cityWidget";
+import Search from "./components/search/search";
 
 function App() {
-  const [data, setData] = useState({});
-  const [location, setLocation] = useState("");
+  const [currentWeather, setCurrentWeather] = useState(null);
+  const [forecast, setForecast] = useState(null);
 
-  const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=895284fb2d2c50a520ea537456963d9c`;
+  const handleOnSearchChange = (searchData) => {
+    const [latitude, longitude] = searchData.value.split(" ");
 
-  const searchLocation = (event) => {
-    if (event.key === "Enter") {
-      axios.get(apiUrl).then((response) => {
-        setData(response.data);
-        console.log(response.data);
-      });
-      setLocation("");
-    }
+    const currentWeatherFetch = fetch(
+      `${WeatherApiUrl}/weather?lat=${latitude}&lon=${longitude}&appid=${WeatherApiKey}`
+    );
+    const forecastFetch = fetch(
+      `${WeatherApiUrl}/forecast?lat=${latitude}&lon=${longitude}&appid=${WeatherApiKey}`
+    );
+
+    Promise.all([currentWeatherFetch, forecastFetch])
+      .then(async (response) => {
+        const weatherResponse = await response[0].json();
+        const forecastResponse = await response[1].json();
+
+        setCurrentWeather({ city: searchData.label, ...weatherResponse });
+        setForecast({ city: searchData.label, ...forecastResponse });
+      })
+      .catch((error) => console.log(error));
   };
 
-  return (
-    <div className="app">
-      <div className="search">
-        <input
-          value={location}
-          onChange={(event) => setLocation(event.target.value)}
-          onKeyPress={searchLocation}
-          placeholder="Enter Location"
-          type="text"
-        />
-      </div>
+  console.log(currentWeather);
+  console.log(forecast);
 
-      <div className="container">
-        <div className="top">
-          <div className="location">
-            <p className="bold">{data.name}</p>
-          </div>
-          <div className="temp">
-            {data.main ? <h1>{data.main.temp.toFixed()}&deg;C</h1> : null}
-          </div>
-          <div className="description">
-            {data.weather ? (
-              <p className="bold">{data.weather[0].main}</p>
-            ) : null}
-          </div>
-        </div>
-        <div className="bottom">
-          <div className="feels">
-            {data.main ? (
-              <p className="bold">{data.main.feels_like.toFixed()}&deg;C</p>
-            ) : null}
-            <p>Feels Like</p>
-          </div>
-          <div className="humidity">
-            {data.main ? <p className="bold">{data.main.humidity}%</p> : null}
-            <p> Humidity</p>
-          </div>
-          <div className="wind">
-            {data.wind ? <p className="bold">{data.wind.speed}MPH</p> : null}
-            <p>Wind Speed</p>
-          </div>
-        </div>
+  return (
+    <div className="container">
+      <div className="container-test">
+        <Search onSearchChange={handleOnSearchChange} />
       </div>
+      <CityWidget />
+      <CityWidget />
     </div>
   );
 }

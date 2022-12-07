@@ -1,0 +1,160 @@
+:root {
+  box-sizing: border-box;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+
+*,
+::after,
+::before {
+  box-sizing: inherit;
+}
+
+.weather {
+  width: 600px;
+  border-radius: 0.5rem;
+  box-shadow: 10px -2px 20px 2px rgb(0, 0, 0, 0.3);
+  color: aliceblue;
+  background-color: #444;
+  margin: 1rem auto;
+  padding: 0.1rem;
+}
+
+.basic,
+.current,
+.week {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0.1rem auto;
+}
+
+.city {
+  font-weight: 600;
+  font-size: 3rem;
+  line-height: 1;
+  margin: 0;
+  letter-spacing: 1px;
+  width: 50%;
+  word-break: normal;
+}
+
+.weather-description {
+  font-weight: 400;
+  font-size: 1.5rem;
+  line-height: 1;
+  margin: 0;
+  letter-spacing: 1px;
+  width: 50%;
+}
+
+.weather-icon {
+  width: 100px;
+}
+
+.temperature {
+  font-weight: 600;
+  font-size: 4rem;
+  letter-spacing: -5px;
+  margin: 0.5rem auto;
+}
+
+.details {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0.5rem;
+  margin-left: 1rem;
+}
+
+.parameter-row {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.parameter-label {
+  text-align: left;
+  font-weight: 400;
+  font-size: 1.5rem;
+}
+.parameter-value {
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+.week {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 30%;
+  margin: 0.3rem;
+  height: 120px;
+}
+
+.weekly-weather-icon {
+  max-width: 100%;
+}
+
+.week-parameter {
+  text-align: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+  width: 100%;
+  margin: 0.1rem auto;
+}
+
+@media (min-width: 280px) and (max-width: 620px) {
+  .weather {
+    width: 250px;
+  }
+
+  .city {
+    font-size: 1.5rem;
+  }
+  .weather-description {
+    font-size: 1.2rem;
+  }
+
+  .temperature {
+    font-size: 3.5rem;
+  }
+
+  .details {
+    flex-direction: column;
+  }
+
+  .parameter-row {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .parameter-label {
+    font-size: 1rem;
+  }
+  .parameter-value {
+    font-size: 1rem;
+    text-align: right;
+  }
+
+  .week {
+    width: 100%;
+    overflow-x: scroll;
+  }
+
+  .day {
+    width: 75px;
+  }
+
+  .weekly-weather-icon {
+    max-width: 70px;
+  }
+}
